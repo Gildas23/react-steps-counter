@@ -6,9 +6,11 @@ const messages = [
   "Invest your new income 🤑",
 ];
 
-function App() {
+function Steps() {
   const styles = {backgroundColor:"#7950f2",color:"#fff"}
   let [step,setStep] = useState(1)
+  const [isOpen, setIsOpen] = useState(true);
+
 
   function handleClick(event){
     const  {name} = event.target
@@ -21,21 +23,37 @@ function App() {
   }
 
   return (
-    <div className="steps">
-      <div className="numbers">
-          <div className={`${step >= 1 ? "active" : ""}`}>1</div>
-          <div className={`${step >= 2 ? "active" : ""}`}>2</div>
-          <div className={`${step >= 3 ? "active" : ""}`}>3</div>
-      </div>
+    <div>
+      <button className="close" onClick={() => setIsOpen((is) => !is)}>
+        &times;
+      </button>
+
+      {isOpen && (
+        <div className="steps">
+          <div className="numbers">
+            <div className={step >= 1 ? "active" : ""}>1</div>
+            <div className={step >= 2 ? "active" : ""}>2</div>
+            <div className={step >= 3 ? "active" : ""}>3</div>
+          </div>
+      
       <p className="message">Step {step} : {messages[step - 1]}</p>
       <div className="buttons">
         <button name="previous" style={styles} onClick={e=>handleClick(e)}>Previous</button>
         <button name="next" style={styles} onClick={e=>handleClick(e)}>Next</button>
       </div>
     </div>
+  )}
+      </div>
   );
 }
 
+function App(){
+  return <div>
+  <Steps/>
+  <Steps/>
+
+  </div> 
+}
 
 
 export default App;
